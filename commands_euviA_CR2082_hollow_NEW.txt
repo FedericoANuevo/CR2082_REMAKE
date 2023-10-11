@@ -1,0 +1,91 @@
+En tom@antu:/data1/tomography/SolarTom_GRUPO/
+
+e buildA_params.h
+editar en Sección EUVIBUILD:
+-------------------------------------------------------------------------------------
+Rmin, Rmax, DRAD, NRAD =      1.00000      1.30000    0.0100000      30
+INST_RMAX              =      1.25000
+INNER_REJECT_RAD       =      0.00000
+OUTER_REJECT_RAD       =      1.02000
+NTHETA, DTHETA         =      90      2.00000
+BF                     =       4
+--------------------------------------------------------------------------------------
+#define DATADIR    TOMROOT "DATA/euvi/CR2082/A???/"
+#define CONFSTRING DATADIR "list.A???.b4.DECON.HOLLOW1"
+#define A_OUTFILE "euviA_???_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4"
+
+e solve_cv_params.h
+editar
+#define FILESTR1 "r3_30_90_180
+#define MIN_LAMBDA 0.05    /* min and max lambda (used by brent) */
+#define MAX_LAMBDA 5.00
+
+make clean
+
+editar dir y list:
+make builda
+cp builda ba_euviA_171_cr2082_hollow_new
+editar dir y list:
+make builda
+cp builda ba_euviA_195_cr2082_hollow_new
+editar dir y list:
+make builda
+cp builda ba_euviA_284_cr2082_hollow_new
+
+make callsolve_cg
+cp callsolve_cg cs_euviA_171_cr2082_hollow_new
+cp callsolve_cg cs_euviA_195_cr2082_hollow_new
+cp callsolve_cg cs_euviA_284_cr2082_hollow_new
+
+make auto_cv_brent
+cp auto_cv_brent autocv_euviA_171_cr2082_hollow_new
+cp auto_cv_brent autocv_euviA_195_cr2082_hollow_new
+cp auto_cv_brent autocv_euviA_284_cr2082_hollow_new
+
+nohup ./ba_euviA_171_cr2082_hollow_new > termout_bA_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./ba_euviA_195_cr2082_hollow_new > termout_bA_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./ba_euviA_284_cr2082_hollow_new > termout_bA_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+
+Nota: para correr solución inicial uso las de DISK, que se corrieron antes, es mejor que arrancar de ZERO:
+nohup ./cs_euviA_171_cr2082_hollow_new x_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 1.0 > termout_cs_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 2>&1 &
+nohup ./cs_euviA_195_cr2082_hollow_new x_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 1.0 > termout_cs_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 2>&1 &
+nohup ./cs_euviA_284_cr2082_hollow_new x_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 1.0 > termout_cs_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 2>&1 &
+
+cd /media/Data1/data1/tomography/bindata/
+cp x_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_171_cr2082_hollow_new_acv
+cp x_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_195_cr2082_hollow_new_acv
+cp x_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_284_cr2082_hollow_new_acv
+cd /data1/tomography/SolarTom_GRUPO/
+
+nohup ./autocv_euviA_171_cr2082_hollow_new -r5 -w1 -m euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_171_cr2082_hollow_new_acv -o x_euviA_171_cr2082_hollow_new_acv > termout_acv_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./autocv_euviA_195_cr2082_hollow_new -r5 -w1 -m euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_195_cr2082_hollow_new_acv -o x_euviA_195_cr2082_hollow_new_acv > termout_acv_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./autocv_euviA_284_cr2082_hollow_new -r5 -w1 -m euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_284_cr2082_hollow_new_acv -o x_euviA_284_cr2082_hollow_new_acv > termout_acv_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+
+grep "function" termout_acv_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+grep "function" termout_acv_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+grep "function" termout_acv_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+
+- determinar lamda_opt = Median(lambda_i) en cada banda
+- correr callsolve con lamnda_opt para cada banda usando de arranque la salida acv o L1
+
+v_171 = [0.368004,0.380219,0.310971,0.372192,0.636422,0.696575,0.284098,0.336695,0.431078,0.545647,0.652384]
+v_195 = [0.783177,0.372131,0.220999,0.481682,0.16516 ,0.326973,0.111768,0.28222 ,0.358256,0.257341,0.138892]
+v_284 = [1.98917 ,0.382235,0.438034,0.497818,0.257775,0.111476,0.140076,0.271439,0.350587,0.3947  ,0.227072]
+print,median(v_171),median(v_195),median(v_284)
+     0.380219     0.282220     0.350587
+print,mean(v_171),mean(v_195),mean(v_284)
+     0.455844     0.318054     0.460035
+print,stdev(v_171),stdev(v_195),stdev(v_284)
+     0.149325     0.189777     0.521256
+
+nohup ./cs_euviA_171_cr2082_hollow_new x_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L0.38 euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 0.38 > termout_cs_euviA_171_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L0.38 2>&1 &
+nohup ./cs_euviA_195_cr2082_hollow_new x_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L0.28 euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 0.28 > termout_cs_euviA_195_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L0.28 2>&1 &
+nohup ./cs_euviA_284_cr2082_hollow_new x_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L0.35 euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 0.35 > termout_cs_euviA_284_CR2082_hollow_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L0.35 2>&1 &
+
+Correr LDEM:
+
+tcsh
+sswidlback ldem_actual_euvi_hollow_2bands &
+sswidlback ldem_actual_euvi_hollow_3bands &
+
+==>

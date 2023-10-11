@@ -1,0 +1,111 @@
+
+En tom@antu:/data1/tomography/SolarTom_GRUPO/
+
+e buildA_params.h
+editar en Sección EUVIBUILD:
+-------------------------------------------------------------------------------------
+Rmin, Rmax, DRAD, NRAD =      1.00000      1.30000    0.0100000      30
+INST_RMAX              =      1.25000
+INNER_REJECT_RAD       =     0.980000
+OUTER_REJECT_RAD       =      1.02000
+NTHETA, DTHETA         =      90      2.00000
+BF                     =       4
+--------------------------------------------------------------------------------------
+#define DATADIR    TOMROOT "DATA/euvi/CR2082/A???/"
+#define CONFSTRING DATADIR "list.A???.b4.DECON.FULLDISK"
+#define A_OUTFILE "euviA_???_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4"
+
+e solve_cv_params.h
+editar
+#define FILESTR1 "r3_30_90_180
+#define MIN_LAMBDA 0.05    /* min and max lambda (used by brent) */
+#define MAX_LAMBDA 5.00
+
+make clean
+
+make builda (editar dir y list)
+cp builda ba_euviA_171_cr2082_disk_new
+make builda (editar dir y list)
+cp builda ba_euviA_195_cr2082_disk_new
+make builda (editar dir y list)
+cp builda ba_euviA_284_cr2082_disk_new
+
+make callsolve_cg
+cp callsolve_cg cs_euviA_171_cr2082_disk_new
+cp callsolve_cg cs_euviA_195_cr2082_disk_new
+cp callsolve_cg cs_euviA_284_cr2082_disk_new
+
+make auto_cv_brent
+cp auto_cv_brent autocv_euviA_171_cr2082_disk_new
+cp auto_cv_brent autocv_euviA_195_cr2082_disk_new
+cp auto_cv_brent autocv_euviA_284_cr2082_disk_new
+
+nohup ./ba_euviA_171_cr2082_disk_new > termout_bA_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./ba_euviA_195_cr2082_disk_new > termout_bA_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./ba_euviA_284_cr2082_disk_new > termout_bA_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+
+
+nohup ./cs_euviA_171_cr2082_disk_new x_zero_30_90_180 x_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 1.0 > termout_cs_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 2>&1 &
+nohup ./cs_euviA_195_cr2082_disk_new x_zero_30_90_180 x_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 1.0 > termout_cs_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 2>&1 &
+nohup ./cs_euviA_284_cr2082_disk_new x_zero_30_90_180 x_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 1.0 > termout_cs_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 2>&1 &
+
+cd /media/Data1/data1/tomography/bindata/
+cp x_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_171_cr2082_disk_new_acv
+cp x_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_195_cr2082_disk_new_acv
+cp x_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4_L1.0 x_euviA_284_cr2082_disk_new_acv
+cd /data1/tomography/SolarTom_GRUPO/
+
+nohup ./autocv_euviA_171_cr2082_disk_new -r5 -w1 -m euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_171_cr2082_disk_new_acv -o x_euviA_171_cr2082_disk_new_acv > termout_acv_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./autocv_euviA_195_cr2082_disk_new -r5 -w1 -m euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_195_cr2082_disk_new_acv -o x_euviA_195_cr2082_disk_new_acv > termout_acv_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./autocv_euviA_284_cr2082_disk_new -r5 -w1 -m euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_284_cr2082_disk_new_acv -o x_euviA_284_cr2082_disk_new_acv > termout_acv_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+
+
+grep "function" termout_acv_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+
+grep "function" termout_acv_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+function value = 4.99963
+function value = 0.628269
+function value = 0.272312
+function value = 0.488882
+function value = 0.896725
+function value = 4.8425
+function value = 4.99967
+function value = 4.99967
+function value = 4.99109
+function value = 0.61632
+
+grep "function" termout_acv_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+function value = 4.99967
+function value = 0.411838
+function value = 0.152501
+function value = 0.347606
+function value = 0.701267
+function value = 4.99967
+function value = 4.99967
+function value = 4.99967
+function value = 4.99967
+function value = 4.99967
+function value = 4.99967
+
+Mato Auto-CV de 195 y 284 A. Relargo AUTO-CV cambiando MAX_LAMBDA 5.00 > 100.:
+
+make clean
+make auto_cv_brent
+cp auto_cv_brent autocv_euviA_195_cr2082_disk_new
+cp auto_cv_brent autocv_euviA_284_cr2082_disk_new
+
+nohup ./autocv_euviA_195_cr2082_disk_new -r5 -w1 -m euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_195_cr2082_disk_new_acv -o x_euviA_195_cr2082_disk_new_acv > termout_acv_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+nohup ./autocv_euviA_284_cr2082_disk_new -r5 -w1 -m euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 -i x_euviA_284_cr2082_disk_new_acv -o x_euviA_284_cr2082_disk_new_acv > termout_acv_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4 2>&1 &
+
+Retomo 07-09-23 en CLASP, Ann Arbor-MI
+
+grep "function" termout_acv_euviA_171_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+grep "function" termout_acv_euviA_195_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+grep "function" termout_acv_euviA_284_CR2082_disk_NEW_Rmin1.00_Rmax1.30_IRmax1.25_30x90x180_BF4
+
+v_171 = [0.56338, 0.273037, 0.194517, 0.225281, 0.242031, 0.179261, 0.415308, 0.556211, 0.262356, 0.282823, 0.287069, 0.27462, 0.264915, 0.331483, 0.257569, 0.165133, 0.284821, 0.427246, 0.34781, 0.240848, 0.152998, 0.251968]
+v_195 = [6.18123, 0.623261, 0.27237, 0.493528, 0.900221, 4.86074, 6.52748, 8.66728, 5.0844, 1.71085, 0.525434, 1.12522, 0.366757, 0.738625, 0.456657, 0.120239, 2.80426, 3.40729, 4.48745, 0.123712, 0.114713, 0.196908]
+v_284 = [15.4548, 0.411175, 0.152719, 0.347159, 0.704569, 14.3142, 99.9992, 99.9996, 99.9998, 19.9799, 16.469, 20.0075, 9.98976, 2.76361, 0.624087, 0.1175, 4.11707,  3.28587, 6.68327, 0.0502016, 0.0502016, 0.0622932]
+
+
+

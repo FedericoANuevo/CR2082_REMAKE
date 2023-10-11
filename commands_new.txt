@@ -1,0 +1,306 @@
+;-------------------------------
+OBS: Estas corridas tienen en cuenta los nuevos settings en builda_params 25/06/2018
+Es decir:
+Rmin=1.0
+Rmax=1.5
+Instr_rmax=1.3
+Nrad=50
+Btheta=90
+INNER_REJECT_RAD 0.98  --> 0.00 para fulldisk
+OUTER_REJECT_RAD 1.02
+
+las listas bineadas son:
+list.A171.b4.DECON.FULLDISK list.A171.b4.DECON.HOLLOW1 list.A171.b4.DECON.HOLLOW2
+list.A195.b4.DECON.FULLDISK list.A195.b4.DECON.HOLLOW1 list.A195.b4.DECON.HOLLOW2
+list.A284.b4.DECON.FULLDISK list.A284.b4.DECON.HOLLOW1 list.A284.b4.DECON.HOLLOW2
+
+las salidas de las matrices en orden de largada:
+OBS: la extension .NS indica "new settings"
+euviA.171.cr2082.ri.98-ro1.02.DECON.NewSet
+euviA.195.cr2082.ri.98-ro1.02.DECON.NewSet
+euviA.284.cr2082.ri.98-ro1.02.DECON.NewSet
+
+euviA.171.cr2082.ri.00-ro1.02.DECON.HOLLOW1.NS
+euviA.195.cr2082.ri.00-ro1.02.DECON.HOLLOW1.NS
+euviA.284.cr2082.ri.00-ro1.02.DECON.HOLLOW1.NS
+
+euviA.171.cr2082.ri.00-ro1.02.DECON.HOLLOW2.NS
+euviA.195.cr2082.ri.00-ro1.02.DECON.HOLLOW2.NS
+euviA.284.cr2082.ri.00-ro1.02.DECON.HOLLOW2.NS
+
+;----
+
+nohup ./baA171.cr2082.DECON.FULLDISK > termout.baA171.cr2082.DECON.FULLDISK 2>&1 &
+nohup ./baA195.cr2082.DECON.FULLDISK > termout.baA195.cr2082.DECON.FULLDISK 2>&1 &
+nohup ./baA284.cr2082.DECON.FULLDISK > termout.baA284.cr2082.DECON.FULLDISK 2>&1 &
+
+nohup ./baA171.cr2082.DECON.HALFHOLLOW1 > termout.baA171.cr2082.DECON.HALFHOLLOW1 2>&1 &
+nohup ./baA195.cr2082.DECON.HALFHOLLOW1 > termout.baA195.cr2082.DECON.HALFHOLLOW1 2>&1 &
+nohup ./baA284.cr2082.DECON.HALFHOLLOW1 > termout.baA284.cr2082.DECON.HALFHOLLOW1 2>&1 &
+
+;hollow2 NO estan corridas
+nohup ./baA171.cr2082.DECON.HALFHOLLOW2 > termout.baA171.cr2082.DECON.HALFHOLLOW2 2>&1 &
+nohup ./baA195.cr2082.DECON.HALFHOLLOW2 > termout.baA195.cr2082.DECON.HALFHOLLOW2 2>&1 &
+nohup ./baA284.cr2082.DECON.HALFHOLLOW2 > termout.baA284.cr2082.DECON.HALFHOLLOW2 2>&1 &
+;---------
+
+Con Nmats=2
+;Matrices de New Settings NS utilizan matrices de 50x90x180
+;debo renombrar las salidas
+#define FILESTR1 "hlaplac_50_90_180"
+
+
+nohup ./callsolve_cg x_euvi.A.171.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON x_euvi.A.171.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_NewSet euviA.171.cr2082.ri.98-ro1.02.DECON.NewSet 0.75 > termout.cv-cg.euvi.171.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac_l.75_fulldisk 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_NewSet euviA.195.cr2082.ri.98-ro1.02.DECON.NewSet 0.75 > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac_l.75_fulldisk 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON x_euvi.A.284.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_NewSet euviA.284.cr2082.ri.98-ro1.02.DECON.NewSet 0.75 > termout.cv-cg.euvi.284.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac_l.75_fulldisk 2 >&1 &
+
+
+nohup ./callsolve_cg x_euvi.A.171.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON x_euvi.A.171.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet euviA.171.cr2082.ri.00-ro1.02.DECON.NewSet.Hollow1 0.225 > termout.cv-cg.euvi.171.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac_l.225_hollow1 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON x_euvi.A.195.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet euviA.195.cr2082.ri.00-ro1.02.DECON.NewSet.Hollow1 0.225 > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac_l.225_hollow1 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON x_euvi.A.284.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet euviA.284.cr2082.ri.00-ro1.02.DECON.NewSet.Hollow1 0.225 > termout.cv-cg.euvi.284.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac_l.225_hollow1 2 >&1 &
+
+Con Nmats=3
+#define FILESTR1 "hlaplac_50_90_180"
+
+#define FILESTR2     "d2r_50_90_180"
+#define HUBER_FLAG {0,0,0}
+#define LAMBDA  {1.,0.75,0.75} 
+#define FILESTR0 "euviA.171.cr2082.ri.98-ro1.02.DECON.NewSet"
+#define MAIN_X_INFILE  "x_euvi.A.171.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON"
+#define MAIN_X_OUTFILE "x_euvi.A.171.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON.d2r_NewSet"
+nohup ./callsolve_cg > termout.cv-cg.euvi.171.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac.d2r_l.75_fulldisk_NewSet 2>&1 &
+
+#define FILESTR0 "euviA.195.cr2082.ri.98-ro1.02.DECON.NewSet"
+#define MAIN_X_INFILE  "x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON"
+#define MAIN_X_OUTFILE "x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON.d2r_NewSet"
+nohup ./callsolve_cg > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac.d2r_l.75_fulldisk_NewSet 2>&1 &
+
+#define FILESTR0 "euviA.284.cr2082.ri.98-ro1.02.DECON.NewSet"
+#define MAIN_X_INFILE  "x_euvi.A.284.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON"
+#define MAIN_X_OUTFILE "x_euvi.A.284.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON.d2r_NewSet"
+nohup ./callsolve_cg > termout.cv-cg.euvi.284.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac.d2r_l.75_fulldisk_NewSet 2>&1 &
+
+#define FILESTR2     "d2r_50_90_180"
+#define HUBER_FLAG {0,0,0}
+#define LAMBDA  {1.,0.225,0.225}
+#define FILESTR0 "euviA.171.cr2082.ri.00-ro1.02.DECON.NewSet.Hollow1"
+#define MAIN_X_INFILE  "x_euvi.A.171.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON.d2r"
+#define MAIN_X_OUTFILE "x_euvi.A.171.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet.d2r"
+nohup ./callsolve_cg > termout.cv-cg.euvi.171.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac.d2r_l.225_hollow1_NewSet 2>&1 &
+
+#define FILESTR0 "euviA.195.cr2082.ri.00-ro1.02.DECON.NewSet.Hollow1"
+#define MAIN_X_INFILE  "x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON.d2r"
+#define MAIN_X_OUTFILE "x_euvi.A.195.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet.d2r"
+nohup ./callsolve_cg > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac.d2r_l.225_hollow1_NewSet 2>&1 &
+
+#define FILESTR0 "euviA.284.cr2082.ri.00-ro1.02.DECON.NewSet.Hollow1"
+#define MAIN_X_INFILE  "x_euvi.A.284.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON.d2r"
+#define MAIN_X_OUTFILE "x_euvi.A.284.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet.d2r"
+nohup ./callsolve_cg > termout.cv-cg.euvi.284.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac.d2r_l.225_hollow1_NewSet 2>&1 &
+
+
+;------------------
+ldem.v3_cr2082_euviA_decon_l0.75_fulldisk_hlaplac.log
+LDEM.v3_cr2082_l0.75_fulldisk_hlaplac_chianti.ioneq_sun_coronal_1992_feldman_ext.abund_euvi.A_L171_DECON_FULLHOLLOW_gauss1_lin_Norm-median_singlStart
+
+ldem.v3_cr2082_euviA_decon_l0.225_halfhollow_hlaplac.log
+LDEM.v3_cr2082_l0.225_halfhollow_hlaplac_chianti.ioneq_sun_coronal_1992_feldman_ext.abund_euvi.A_L171_DECON_FULLHOLLOW_gauss1_lin_Norm-median_singlStart
+
+ldem.v3_cr2082_euviA_decon_l0.75_fulldisk_hlaplac_d2r.log
+LDEM.v3_cr2082_l0.75_fulldisk_hlaplac_d2r_chianti.ioneq_sun_coronal_1992_feldman_ext.abund_euvi.A_L171_DECON_FULLHOLLOW_gauss1_lin_Norm-median_singlStart
+
+ldem.v3_cr2082_euviA_decon_l0.225_halfhollow_hlaplac_d2r.log
+LDEM.v3_cr2082_l0.225_halfhollow_hlaplac_d2r_chianti.ioneq_sun_coronal_1992_feldman_ext.abund_euvi.A_L171_DECON_FULLHOLLOW_gauss1_lin_Norm-median_singlStart
+
+;-------------------
+Matriz y FBE de chequeo. Las NewSet dan raras, esta es Old Style y la idea es comparar las de nuevos seteos con estas de viejos seteos.
+es decir que el builda.h contiene:
+instr_max 1.26 (en lugar de 1.3)
+rmax 1.26 (en lugar de 1.5)
+rmin 1.0 (igual que siempre)
+nrad 26 (en lugar de 50)
+
+OBS: OLDSET2 implica oldset pero con instr_max=1.5 en lugar de 1.26
+nohup ./baA195.cr2082.DECON.HALFHOLLOW1_OLDSET2 > termout.baA195.cr2082.DECON.HALFHOLLOW1_OLDSET2 2>&1 &
+salida --> euviA.195.cr2082.ri.98-ro1.02.DECON.OldSet2.Hollow1
+nohup ./baA195.cr2082.DECON.FULLDISK_OLDSET2    > termout.baA195.cr2082.DECON.FULLDISK_OLDSET2 2>&1 &
+salida --> euviA.195.cr2082.ri.98-ro1.02.DECON.OldSet2.FullDisk
+
+nohup ./baA195.cr2082.DECON.HALFHOLLOW1_NEWSET2 > termout.baA195.cr2082.DECON.HALFHOLLOW1_NEWSET2 2>&1 &
+
+nohup ./baA195.cr2082.DECON.FULLDISK_NEWSET2    > termout.baA195.cr2082.DECON.FULLDISK_NEWSET2 2>&1 &
+
+
+nohup ./callsolve_cg x_euvi.A.195.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_OldSet_r2D.Albert  x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_OldSet2_hlaplac euviA.195.cr2082.ri.00-ro1.02.DECON.OldSet2.Hollow1 0.225 > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_26x90_hlaplac_l.225_hollow1_OldSet2 2 >&1 &
+
+nohup ./callsolve_cg x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r2D.Albert x_euvi.A.195.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet2_hlaplac euviA.195.cr2082.ri.98-ro1.02.DECON.OldSet2.FullDisk 0.75 > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_26x90_hlaplac_l.75_fulldisk_OldSet2 2 >&1 &
+
+
+nohup ./callsolve_cg x_euvi.A.195.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet x_euvi.A.195.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON_NewSet2_hlaplac euviA.195.cr2082.ri.00-ro1.02.DECON.NewSet2.Hollow1 0.225 > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_50x90_hlaplac_l.225_hollow1_NewSet2 2 >&1 &
+
+nohup ./callsolve_cg x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_NewSet x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_NewSet2_hlaplac euviA.195.cr2082.ri.98-ro1.02.DECON.NewSet2.FullDisk 0.75 > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_50x90_hlaplac_l.75_fulldisk_NewSet2 2 >&1 &
+
+x_euvi.A.195.cr2082.50x90_bf4_ri.00_ro1.02_l.225_DECON.H1_NewSet
+
+x_euvi.A.195.cr2082.50x90_bf4_ri.98_ro1.02_l.75_DECON_NewSet
+
+;DE AHORA EN MAS VOY A CORRER OLDSET R3D que sería hlaplac +r2d pero con nmats=2 se usa r3d_26_90_180
+
+nohup ./baA171.cr2082.DECON.FD_OLDSET_diego > termout.baA171.cr2082.DECON.FD_OLDSET_diego 2>&1 &
+nohup ./baA195.cr2082.DECON.FD_OLDSET_diego > termout.baA195.cr2082.DECON.FD_OLDSET_diego 2>&1 &
+nohup ./baA284.cr2082.DECON.FD_OLDSET_diego > termout.baA284.cr2082.DECON.FD_OLDSET_diego 2>&1 &
+
+euviA.171.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego
+euviA.195.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego
+euviA.284.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego
+
+nohup ./baA171.cr2082.DECON.H1_OLDSET_diego > termout.baA171.cr2082.DECON.H1_OLDSET_diego 2>&1 &
+nohup ./baA195.cr2082.DECON.H1_OLDSET_diego > termout.baA195.cr2082.DECON.H1_OLDSET_diego 2>&1 &
+nohup ./baA284.cr2082.DECON.H1_OLDSET_diego > termout.baA284.cr2082.DECON.H1_OLDSET_diego 2>&1 &
+
+euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego
+euviA.195.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego
+euviA.284.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego
+
+
+
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON.HOLLOW1.NS1 x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d euviA.171.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego 0.75 > termout.cv-cg.euvi.171.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r3d_l.75_fd 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON.HOLLOW1.NS1 x_euvi.A.195.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r3d euviA.195.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego 0.75 > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r3d_l.75_fd 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON.HOLLOW1.NS1 x_euvi.A.284.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r3d euviA.284.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego 0.75 > termout.cv-cg.euvi.284.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r3d_l.75_fd 2 >&1 &
+
+nueva corrida.
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_v2 euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego 0.225 > termout.cv-cg.euvi.171.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r3d_l.225_H1_v2 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_v2 euviA.195.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego 0.225 > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r3d_l.225_H1_v2 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_V2 euviA.284.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego 0.225 > termout.cv-cg.euvi.284.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r3d_l.225_H1_v2 2 >&1 &
+
+;-------------------------------------------
+Corrida con hlaplac=r2d para comparar con r3d
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r2d euviA.171.cr2082
+.ri.98-ro1.02.DECON.Oldset.FD.Diego 0.75 > termout.cv-cg.euvi.171.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r2d_l.75_fd 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d x_euvi.A.195.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r2d euviA.195.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego 0.75 > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r2d_l.75_fd 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d x_euvi.A.284.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r2d euviA.284.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego 0.75 > termout.cv-cg.euvi.284.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r2d_l.75_fd 2 >&1 &
+
+
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_v2 x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r2d euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego 0.225 > termout.cv-cg.euvi.171.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r2d_l.225_H1_v2 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_v2 x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r2d euviA.195.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego 0.225 > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_26x90_oldset_rdd_l.225_H1_v2 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_v2 x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r2d euviA.284.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego 0.225 > termout.cv-cg.euvi.284.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r2d_l.225_H1_v2 2 >&1 &
+
+Es decir que utilizo las mismas matrices que antes pero ahora hlaplac en lugar r3d. ya que quiero comparar la diferencia.
+;==========
+chequeo de r3d y la puta madre
+
+nohup ./baA171.cr2082.DECON.FD_OLDSET_diego_vcheck > termout.baA171.cr2082.DECON.FD_OLDSET_diego_vcheck 2>&1 &
+nohup ./baA195.cr2082.DECON.FD_OLDSET_diego_vcheck > termout.baA195.cr2082.DECON.FD_OLDSET_diego_vcheck 2>&1 &
+nohup ./baA284.cr2082.DECON.FD_OLDSET_diego_vcheck > termout.baA284.cr2082.DECON.FD_OLDSET_diego_vcheck 2>&1 &
+
+
+nohup ./baA171.cr2082.DECON.H1_OLDSET_diego_vcheck > termout.baA171.cr2082.DECON.H1_OLDSET_diego_vcheck 2>&1 &
+nohup ./baA195.cr2082.DECON.H1_OLDSET_diego_vcheck > termout.baA195.cr2082.DECON.H1_OLDSET_diego_vcheck 2>&1 &
+nohup ./baA284.cr2082.DECON.H1_OLDSET_diego_vcheck > termout.baA284.cr2082.DECON.H1_OLDSET_diego_vcheck 2>&1 &
+
+
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d x_euvi.A.171.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d_vcheck euviA.171.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego_vcheck 0.75 > termout.cv-cg.euvi.171.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r3d_l.75_fd_vcheck 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d x_euvi.A.195.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r3d_vcheck euviA.195.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego_vcheck 0.75 > termout.cv-cg.euvi.195.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r3d_l.75_fd_vcheck 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_Oldset_r3d x_euvi.A.284.cr2082.26x90_bf4_ri.98_ro1.02_l.75_DECON_OldSet_r3d_vcheck euviA.284.cr2082.ri.98-ro1.02.DECON.Oldset.FD.Diego_vcheck 0.75 > termout.cv-cg.euvi.284.cr2082.ri.98-ro1.02_DECON_26x90_oldset_r3d_l.75_fd_vcheck 2 >&1 &
+
+
+nohup ./callsolve_cg x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_vcheck euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego_vcheck 0.225 > termout.cv-cg.euvi.171.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r3d_l.225_H1_vcheck 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d x_euvi.A.195.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_vcheck euviA.195.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego_vcheck 0.225 > termout.cv-cg.euvi.195.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r3d_l.225_H1_vcheck 2 >&1 &
+nohup ./callsolve_cg x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d x_euvi.A.284.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_vcheck euviA.284.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego_vcheck 0.225 > termout.cv-cg.euvi.284.cr2082.ri.00-ro1.02_DECON_26x90_oldset_r3d_l.225_H1_vcheck 2 >&1 &
+
+
+;...........
+LDEMs
+
+LDEM.v3_cr2082_l0.75_fd_r3d_oldset_chianti.ioneq_sun_coronal_1992_feldman_ext.abund_euvi.A_L171_DECON_gauss1_lin_Norm-median_singlStart
+LDEM.v3_cr2082_l0.225_h1_r3d_oldset_chianti.ioneq_sun_coronal_1992_feldman_ext.abund_euvi.A_L171_DECON_gauss1_lin_Norm-median_singlStart
+
+OBS: se esta corriendo 2082 FD r2d
+
+
+
+;---------------------
+
+Movies:
+cd /data1/tomography/DATA/euvi/CR2081/A171/
+ mencoder *0.b4.NEWHDR.fts.gif -mf fps=25 -o movie_time-binned_nodecon_171.avi -ovc lavc -lavcopts vcodec=mpeg4
+
+cd /data1/tomography/DATA/euvi/CR2081/A195/
+ mencoder *0.b4.NEWHDR.fts.gif -mf fps=25 -o movie_time-binned_nodecon_195.avi -ovc lavc -lavcopts vcodec=mpeg4
+
+cd /data1/tomography/DATA/euvi/CR2081/A284/
+ mencoder *0.b4.NEWHDR.fts.gif -mf fps=25 -o movie_time-binned_nodecon_284.avi -ovc lavc -lavcopts vcodec=mpeg4
+
+cd /data1/tomography/DATA/euvi/CR2081/A304/
+ mencoder *DECON.b4.NEWHDR.fts.gif -mf fps=25 -o movie_time-binned_decon_304.avi -ovc lavc -lavcopts vcodec=mpeg4
+
+------------------- Nuevos experimentos Albert & Fede Noviembre 2022 ---------------------------------
+
+1) Solución de arranque para auto_cv_brent:
+cd /media/Data1/data1/tomography/bindata/
+cp x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_l.225_DECON_Oldset_H1_r3d_vcheck x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_DECON_Oldset_H1_r3d_vcheck_acv
+
+2) Matriz necesaria:
+sudo rsync -arov /media/Data/data1/tomography_NALAI/bindata/*euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego_vcheck /media/Data1/data1/tomography/bindata/
+sudo chown tom:tom /media/Data1/data1/tomography/bindata/*euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego_vcheck
+
+2) auto_cv_brent en ANTU:
+cd /data1/tomography/SolarTom_GRUPO/
+-- Edité adecuadamente buildA_params.h y solve_cv.h --
+make clean
+make auto_cv_brent
+cp auto_cv_brent avc
+nohup ./acv -r5 -w1 -m euviA.171.cr2082.ri.00-ro1.02.DECON.Oldset.H1.Diego_vcheck
+-i x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_DECON_Oldset_H1_r3d_vcheck_acv -o x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_DECON_Oldset_H1_r3d_vcheck_acv
+> termout.x_euvi.A.171.cr2082.26x90_bf4_ri.00_ro1.02_DECON_Oldset_H1_r3d_vcheck_acv 2>&1 &
+
+
+----- Nueva reconstrucción DEMT de CR2082 a partir de las imágenes ya procesadas por Diego, por A&F -------
+
+-- 01/12/22 --
+
+Visualización de imágenes:
+171/list.171.b4.variability_hollow.gif
+171/list.A171.b4.DECON.FULLDISk.allframes.gif
+195/list.195.b4.variability_hollow.gif
+195/list.195.b4.allframes.gif
+284/list.284.b4.variability_hollow.gif
+284/list.284.b4.allframes.gif
+
+Listas de imágenes Hollow:
+/media/Data1/data1/tomography/DATA/euvi/CR2082/A???/list.A???.b4.DECON.HOLLOW1
+
+Listas de imágenes FullDisk:
+/media/Data1/data1/tomography/DATA/euvi/CR2082/A???/list.A???.b4.DECON.FULLDISK
+
+- Settings para BUILDA:
+#define INSTR_RMAX 1.25
+#define RMAX       1.30
+#define RMIN       1.00
+#ifdef  RING_REJECT
+#define INNER_REJECT_RAD 0.00  // hollow!
+#define OUTER_REJECT_RAD 1.02
+#endif
+#define NRAD    30
+#define NTHETA  90
+
+- Settings para CALLSOLVE y AUTO_CV
+#define NMATS 2                         /* total number of matrices: A1, possibly A2, plus Reg1,... */  
+#define NUMBER_OF_DATA_MATRICES 1	/* number observation matrices */
+#define FILESTR1 "r3_30_90_180"
+#define MIN_LAMBDA 0.05    /* min and max lambda (used by brent) */
+#define MAX_LAMBDA 5.00
+
+- Comandos BUILDA
+
+- Comandos solución inicial callsolve_cg con lambda=1.0
+
+
+- Comandos auto_cv_brent
+
+
+Esto sigue en los siguientes archivos dentro de este mismo directorio:
+
+* commands_euviA_CR2082_hollow_NEW.txt
+
+* commands_euviA_CR2082_disk_NEW.txt
