@@ -1,4 +1,6 @@
 
+; Este codigo usa la escala de color historica (de los papers) y
+; satura en negro tanto ZDAs como CNSs
 
 pro carrington_maps
 

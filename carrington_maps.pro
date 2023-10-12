@@ -1,3 +1,8 @@
+; Este script sirve para hacer mapas lat-lon de N_e y T_m DEMT.
+; Explora una nueva escala de color y satura ZDAs en negro y CNSs en
+; blanco.
+; Ademas, hace histogramas en una box.
+
 pro carrington_maps,NFS=NFS,write=write
 
   common comunes,tm,wt,nband,demc,PHI,parametrizacion,Tmin,Tmax,nr,nth,np,rad,lat,lon,lambda,WTc
